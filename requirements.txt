@@ -1,0 +1,9 @@
+Flask
+fpdf
+pdfplumber
+python-dotenv
+google-generativeai
+groq
+requests
+Werkzeug
+google-genai

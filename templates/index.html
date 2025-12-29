@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PortfolioGen</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Circular Std Font -->
+    <style>
+        @font-face {
+            font-family: "circular-std";
+            src: url("https://nishchal-kansara.web.app/fonts/circular-std.ttf") format("truetype");
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, #f97316 100%);
+            --shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+            --shadow-heavy: 0 30px 60px rgba(99, 102, 241, 0.25);
+        }
+
+        * {
+            font-family: "circular-std", -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            margin: 0 1rem;
+            color: var(--dark) !important;
+            position: relative;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #eef2ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: var(--gradient);
+            opacity: 0.05;
+            top: -300px;
+            right: -200px;
+            z-index: 0;
+        }
+
+        .hero:after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            opacity: 0.05;
+            bottom: -200px;
+            left: -100px;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Upload Section */
+        .upload-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .upload-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: var(--shadow);
+            border: 2px dashed #e2e8f0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .upload-card.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            height: 100%;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gradient);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+
+        /* How It Works */
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .process-step:last-child:after {
+            display: none;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Upload Progress */
+        .upload-progress {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .progress-bar {
+            background: var(--gradient);
+            height: 8px;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .upload-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Upload Success State */
+        .upload-success {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 100%);
+            border-radius: 15px;
+            margin-top: 2rem;
+            border: 2px solid #22c55e;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .file-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .file-details h5 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .file-details p {
+            margin: 5px 0 0 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-magic me-2"></i>PortfolioGen
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#upload">Upload</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#features">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#process">How It Works</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a href="#upload" class="btn btn-primary">
+                                Get Started <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <span class="hero-badge animate__animated animate__pulse animate__infinite">
+                            <i class="fas fa-bolt me-2"></i>AI-Powered
+                        </span>
+                        <h1 class="hero-title">
+                            Transform Your Resume Into A <span
+                                style="background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Stunning
+                                Portfolio</span>
+                        </h1>
+                        <p class="hero-subtitle">
+                            Upload your resume in PDF format and let our AI generate a personalized, professional
+                            portfolio website in minutes. No coding required.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="#upload" class="btn btn-primary btn-lg">
+                                <i class="fas fa-rocket me-2"></i>Start Building
+                            </a>
+                            <a href="#features" class="btn btn-outline-primary btn-lg">
+                                <i class="fas fa-play-circle me-2"></i>See Demo
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <div class="card border-0 shadow-lg animate__animated animate__fadeInRight"
+                            style="border-radius: 20px; overflow: hidden;">
+                            <div class="card-body p-0">
+                                <div class="bg-dark p-3 d-flex align-items-center">
+                                    <div class="d-flex gap-2">
+                                        <div class="rounded-circle"
+                                            style="width: 12px; height: 12px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                                        </div>
+                                        <div class="rounded-circle"
+                                            style="width: 12px; height: 12px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                                        </div>
+                                        <div class="rounded-circle"
+                                            style="width: 12px; height: 12px; background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="d-flex align-items-center mb-4">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center"
+                                            style="width: 80px; height: 80px; background: var(--gradient);">
+                                            <i class="fas fa-user text-white fa-2x"></i>
+                                        </div>
+                                        <div class="ms-4">
+                                            <h4 class="mb-1">Alex Johnson</h4>
+                                            <p class="text-primary mb-0"
+                                                style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                                                Senior Frontend Developer</p>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="p-3 rounded-3"
+                                                style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+                                                <small class="text-muted">Experience</small>
+                                                <h6 class="mb-0">5+ Years</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="p-3 rounded-3"
+                                                style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+                                                <small class="text-muted">Projects</small>
+                                                <h6 class="mb-0">42+</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Floating elements -->
+                        <div class="position-absolute top-0 start-0 translate-middle animate__animated animate__bounceIn"
+                            style="animation-delay: 0.5s;">
+                            <div class="bg-white p-3 rounded-3 shadow" style="transform: rotate(-5deg);">
+                                <i class="fas fa-code fa-2x"
+                                    style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
+                            </div>
+                        </div>
+                        <div class="position-absolute bottom-0 end-0 translate-middle animate__animated animate__bounceIn"
+                            style="animation-delay: 1s;">
+                            <div class="bg-white p-3 rounded-3 shadow" style="transform: rotate(5deg);">
+                                <i class="fas fa-bolt fa-2x"
+                                    style="background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="upload-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Upload Your Resume</h2>
+                <p>Upload your resume in PDF format. Our AI will analyze it and generate your portfolio automatically.
+                </p>
+            </div>
+
+            <div class="upload-card" id="uploadCard">
+                <div class="text-center">
+                    <div class="upload-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3 class="mb-3">Select PDF Resume</h3>
+                    <p class="text-muted mb-4">Click to browse or drag & drop your PDF file (Max 10MB)</p>
+
+                    <button class="btn btn-primary btn-lg" id="browseBtn">
+                        <i class="fas fa-folder-open me-2"></i>Browse PDF Files
+                    </button>
+
+                    <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
+
+                    <!-- Upload Progress -->
+                    <div class="upload-progress" id="uploadProgress">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Uploading...</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Success -->
+                    <div class="upload-success" id="uploadSuccess">
+                        <div class="file-info">
+                            <div class="file-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="file-details">
+                                <h5 id="fileName">resume.pdf</h5>
+                                <p id="fileSize">2.4 MB</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-lg" id="generateBtn">
+                            <i class="fas fa-sparkles me-2"></i>Generate My Portfolio
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose PortfolioGen</h2>
+                <p>Powerful features that make portfolio creation effortless and professional</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h4>AI-Powered Generation</h4>
+                        <p>Our AI analyzes your resume and creates a perfectly tailored portfolio with optimal
+                            layout and content.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Fully Responsive</h4>
+                        <p>Generated portfolios look stunning on all devices - desktop, tablet, and mobile with perfect
+                            responsiveness.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Lightning Fast</h4>
+                        <p>Generate your complete portfolio within 5-10 minutes. No waiting, just instant professional
+                            results.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="process" class="upload-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Three simple steps to your professional portfolio</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload PDF Resume</h4>
+                            <p class="text-muted">Upload your resume in PDF format. Our system extracts all relevant
+                                information automatically.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>AI Analysis & Generation</h4>
+                            <p class="text-muted">Our AI analyzes your skills, experience, and preferences to generate
+                                the perfect portfolio layout with optimized content.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Download & Customize</h4>
+                            <p class="text-muted">Download your complete portfolio as a ZIP file with HTML, CSS, JS
+                                files. Host anywhere or customize further as needed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+            <div class="row">
+                <div class="col-lg-12 mb-5 mb-lg-0 d-flex flex-column align-items-center">
+                    <div class="footer-logo">PortfolioGen</div>
+                    <p class="text-light mb-4 text-center">AI-powered portfolio generation for professionals. Transform
+                        your resume into a stunning portfolio in minutes.</p>
+                    <div class="social-links d-flex justify-content-center">
+                        <a href="https://nishchal-kansara.web.app/" style="text-decoration: none;"><i
+                                class="fa-solid fa-link"></i></a>
+                        <a href="https://www.linkedin.com/in/nishchal-kansara/" style="text-decoration: none;"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/nishchal-kansara/" style="text-decoration: none;"><i
+                                class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="copyright">
+                <p>&copy; 2025 PortfolioGen</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // DOM Elements
+        const browseBtn = document.getElementById('browseBtn');
+        const pdfInput = document.getElementById('pdfInput');
+        const uploadCard = document.getElementById('uploadCard');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const uploadSuccess = document.getElementById('uploadSuccess');
+        const progressBar = document.getElementById('progressBar');
+        const progressPercent = document.getElementById('progressPercent');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const generateBtn = document.getElementById('generateBtn');
+
+        // API endpoints
+        const API_BASE = window.location.origin;
+        let currentJobId = null;
+
+        // Event Listeners
+        browseBtn.addEventListener('click', () => pdfInput.click());
+
+        pdfInput.addEventListener('change', handleFileSelect);
+
+        uploadCard.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadCard.classList.add('active');
+        });
+
+        uploadCard.addEventListener('dragleave', () => {
+            uploadCard.classList.remove('active');
+        });
+
+        uploadCard.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadCard.classList.remove('active');
+            if (e.dataTransfer.files.length) {
+                pdfInput.files = e.dataTransfer.files;
+                handleFileSelect();
+            }
+        });
+
+        generateBtn.addEventListener('click', generatePortfolio);
+
+        // Functions
+        async function handleFileSelect() {
+            const file = pdfInput.files[0];
+            if (!file) return;
+
+            // Check if file is PDF
+            if (!file.type.includes('pdf')) {
+                showAlert('Please upload a PDF file.', 'error');
+                return;
+            }
+
+            // Check file size (10MB max)
+            if (file.size > 10 * 1024 * 1024) {
+                showAlert('File size exceeds 10MB limit.', 'error');
+                return;
+            }
+
+            // Create FormData
+            const formData = new FormData();
+            formData.append('file', file);
+
+            // Show upload progress
+            uploadProgress.style.display = 'block';
+            progressBar.style.width = '0%';
+            progressPercent.textContent = '0%';
+
+            // Simulate progress for better UX
+            simulateProgress();
+
+            try {
+                const response = await fetch(`${API_BASE}/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Upload failed');
+                }
+
+                // Complete progress
+                progressBar.style.width = '100%';
+                progressPercent.textContent = '100%';
+
+                // Store job ID
+                currentJobId = data.job_id;
+
+                // Update file info
+                fileName.textContent = data.filename;
+                fileSize.textContent = data.fileSize;
+
+                // Hide progress, show success
+                setTimeout(() => {
+                    uploadProgress.style.display = 'none';
+                    uploadSuccess.style.display = 'block';
+                    uploadCard.classList.add('active');
+                }, 500);
+
+            } catch (error) {
+                console.error('Upload error:', error);
+                showAlert(`Upload failed: ${error.message}`, 'error');
+                uploadProgress.style.display = 'none';
+            }
+        }
+
+        function simulateProgress() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                if (progress <= 95) {
+                    progressBar.style.width = `${progress}%`;
+                    progressPercent.textContent = `${progress}%`;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 100);
+        }
+
+        async function generatePortfolio() {
+            if (!currentJobId) {
+                showAlert('Please upload a PDF first.', 'error');
+                return;
+            }
+
+            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating Portfolio...';
+            generateBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ job_id: currentJobId })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Generation failed');
+                }
+
+                // Update UI with success
+                generateBtn.innerHTML = '<i class="fas fa-eye me-2"></i>View Portfolio';
+                generateBtn.disabled = false;
+
+                // Change click handler to view
+                generateBtn.removeEventListener('click', generatePortfolio);
+                generateBtn.addEventListener('click', () => {
+                    window.open(data.view_url, '_blank');
+                });
+
+                // Clear existing buttons
+                const existingButtons = uploadSuccess.querySelectorAll('.action-button');
+                existingButtons.forEach(btn => btn.remove());
+
+                // Add new action buttons
+                addActionButtons(data);
+
+                // Show success message
+                showAlert('Portfolio generated successfully!', 'success');
+
+            } catch (error) {
+                console.error('Generation error:', error);
+                showAlert(`Generation failed: ${error.message}`, 'error');
+                generateBtn.innerHTML = '<i class="fas fa-sparkles me-2"></i>Generate My Portfolio';
+                generateBtn.disabled = false;
+            }
+        }
+
+        function addActionButtons(data) {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'action-buttons mt-4';
+            buttonContainer.style.cssText = `
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        `;
+
+            // View button
+            const viewBtn = createActionButton(
+                'View Portfolio',
+                'fas fa-eye',
+                '#6366f1',
+                () => window.open(data.view_url, '_blank')
+            );
+
+            // Download button
+            const downloadBtn = createActionButton(
+                'Download HTML',
+                'fas fa-download',
+                '#10b981',
+                () => window.location.href = data.download_url
+            );
+
+            // Preview button
+            const previewBtn = createActionButton(
+                'Raw Preview',
+                'fas fa-external-link-alt',
+                '#8b5cf6',
+                () => window.open(data.preview_url, '_blank')
+            );
+
+            buttonContainer.appendChild(viewBtn);
+            buttonContainer.appendChild(downloadBtn);
+            buttonContainer.appendChild(previewBtn);
+
+            uploadSuccess.appendChild(buttonContainer);
+        }
+
+        function createActionButton(text, icon, color, onClick) {
+            const button = document.createElement('button');
+            button.className = 'btn action-button';
+            button.style.cssText = `
+            background: linear-gradient(135deg, ${color} 0%, ${color}99 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 180px;
+            justify-content: center;
+        `;
+
+            button.innerHTML = `
+            <i class="${icon}"></i>
+            <span>${text}</span>
+        `;
+
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-2px)';
+                button.style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)';
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+                button.style.boxShadow = 'none';
+            });
+
+            button.addEventListener('click', onClick);
+
+            return button;
+        }
+
+        function showAlert(message, type = 'info') {
+            // Remove existing alerts
+            const existingAlerts = document.querySelectorAll('.custom-alert');
+            existingAlerts.forEach(alert => alert.remove());
+
+            const alert = document.createElement('div');
+            alert.className = `custom-alert alert-${type}`;
+            alert.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            background: ${type === 'error' ? '#ef4444' : type === 'success' ? '#10b981' : '#3b82f6'};
+            color: white;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+        `;
+
+            const icon = type === 'error' ? 'fas fa-exclamation-circle' :
+                type === 'success' ? 'fas fa-check-circle' :
+                    'fas fa-info-circle';
+
+            alert.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="${icon} fa-lg"></i>
+                <span>${message}</span>
+            </div>
+        `;
+
+            document.body.appendChild(alert);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        if (alert.parentNode) {
+                            alert.parentNode.removeChild(alert);
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    `;
+        document.head.appendChild(style);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+            }
+        });
+    </script>
+</body>
+
+</html>
